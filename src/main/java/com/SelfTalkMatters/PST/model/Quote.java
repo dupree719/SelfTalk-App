@@ -1,5 +1,8 @@
 package com.SelfTalkMatters.PST.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,6 +13,22 @@ public class Quote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "quoteID")
     private Long id;
+
+    public Quote(){
+
+    }
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "authorID", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Author author;
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
     public String getQuote() {
         return quote;
